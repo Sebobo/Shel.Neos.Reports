@@ -1,0 +1,16 @@
+privilegeTargets:
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+    'Shel.Neos.Reports:Module':
+      matcher: 'method(Shel\Neos\Reports\Controller\ReportsController->(.*)Action())'
+
+  'Neos\Neos\Security\Authorization\Privilege\ModulePrivilege':
+    'Shel.Neos.Reports:Backend.Module.Management.Reports':
+      matcher: 'management/reports'
+
+roles:
+  'Neos.Neos:AbstractEditor':
+    privileges:
+      - privilegeTarget: 'Shel.Neos.Reports:Backend.Module.Management.Reports'
+        permission: GRANT
+      - privilegeTarget: 'Shel.Neos.Reports:Module'
+        permission: GRANT

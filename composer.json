@@ -1,0 +1,26 @@
+{
+    "name": "shel/neos-reports",
+    "description": "Report generator for Neos CMS node data",
+    "type": "neos-plugin",
+    "keywords": [
+        "neos",
+        "neoscms",
+        "reports",
+        "generator"
+    ],
+    "require": {
+        "php": ">= 7.4",
+        "neos/neos": "^7.3 || ^8.0",
+        "shuchkin/simplexlsxgen": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shel\\Neos\\Reports\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "packageKey": "Shel.Neos.Reports"
+        }
+    }
+}

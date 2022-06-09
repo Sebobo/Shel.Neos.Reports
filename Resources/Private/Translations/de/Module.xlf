@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Shel.Neos.Reports" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="module.label" xml:space="preserve">
+                <source>Reports</source>
+                <target>Berichte</target>
+            </trans-unit>
+            <trans-unit id="module.description" xml:space="preserve">
+                <source>This module allows exporting created content as Excel file.</source>
+                <target>Dieses Modul ermöglicht den Export von erstellten Inhalten als Excel-Datei.</target>
+            </trans-unit>
+
+          <trans-unit id="selectRange.to" xml:space="preserve">
+                <source>To</source>
+                <target>bis</target>
+            </trans-unit>
+          <trans-unit id="selectRange.label" xml:space="preserve">
+                <source>Select range</source>
+                <target>Zeitraum wählen</target>
+            </trans-unit>
+          <trans-unit id="action.generateReport" xml:space="preserve">
+                <source>Generate report</source>
+                <target>Jahresbericht generieren</target>
+            </trans-unit>
+
+          <trans-unit id="column.linkToContent" xml:space="preserve">
+                <source>Link to content</source>
+                <target>Link zum Inhalt</target>
+            </trans-unit>
+
+          <trans-unit id="error.eelExpression" xml:space="preserve">
+                <source>Value could not be retrieved</source>
+                <target>Wert konnte nicht abgerufen werden</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,53 @@
+prototype(Shel.Neos.Reports:Module.Index) < prototype(Neos.Fusion:Component) {
+    csrfToken = ''
+    startDate = ''
+    endDate = ''
+    presets = ${[]}
+
+    generateReportAction = Neos.Fusion:UriBuilder {
+        action = 'generateReport'
+    }
+
+    renderer = afx`
+        <div class="neos-content neos-container-fluid">
+            <div class="neos-row-fluid">
+                <form action={props.generateReportAction} method="post">
+                    <input type="hidden" name="__csrfToken" value={props.csrfToken}/>
+
+                    <div class="date-range-picker" id="report-range" @if={props.presets}>
+                        <span>{I18n.translate('Shel.Neos.Reports:Module:selectRange.label')}</span>
+
+                        <input type="text" name="moduleArguments[startDate]" autocomplete="false" value={props.startDate}/>
+                        <span>{I18n.translate('Shel.Neos.Reports:Module:selectRange.to')}</span>
+                        <input type="text" name="moduleArguments[endDate]" autocomplete="false" value={props.endDate}/>
+                    </div>
+
+                    <br/>
+
+                    <div @if={props.presets}>
+                        <h2>Generate report</h2>
+
+                        <br/>
+
+                        <Neos.Fusion:Loop items={props.presets} itemName="preset" itemKey="key">
+                            <button
+                                type="submit"
+                                value={key}
+                                class="neos-button neos-button-success"
+                                name="moduleArguments[presetName]"
+                            >
+                                {preset.label}
+                            </button>
+                            <br/>
+                            <br/>
+                        </Neos.Fusion:Loop>
+                    </div>
+
+                    <p @if={!props.presets}>
+                        {I18n.translate('Shel.Neos.Reports:Module:note.noPresets')}
+                    </p>
+                </form>
+            </div>
+        </div>
+    `
+}

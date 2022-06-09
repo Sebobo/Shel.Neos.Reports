@@ -1,0 +1,21 @@
+Neos:
+  Neos:
+    userInterface:
+      translation:
+        autoInclude:
+          'Shel.Neos.Reports': ['Module']
+    modules:
+      management:
+        submodules:
+          reports:
+            label: 'Shel.Neos.Reports:Module:module.label'
+            controller: 'Shel\Neos\Reports\Controller\ReportsController'
+            description: 'Shel.Neos.Reports:Module:module.description'
+            icon: 'fas fa-file-excel'
+            resource: 'Shel.Neos.Reports:Backend.Module'
+            privilegeTarget: 'Shel.Neos.Reports:Module'
+            additionalResources:
+              styleSheets:
+                - 'resource://Shel.Neos.Reports/Public/Assets/main.css'
+              javaScripts:
+                - 'resource://Shel.Neos.Reports/Public/Assets/main.js'

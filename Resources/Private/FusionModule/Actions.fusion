@@ -1,0 +1,11 @@
+Shel.Neos.Reports.ReportsController {
+    index = afx`
+        <Shel.Neos.Reports:Module.Index
+          csrfToken={csrfToken}
+          presets={presets}
+          startDate={startDate}
+          endDate={endDate}
+        />
+        <Shel.Neos.Reports:Component.FlashMessages flashMessages={flashMessages}/>
+    `
+}

@@ -1,0 +1,9 @@
+@import 'node_modules/vanillajs-datepicker/dist/css/datepicker-bs4.min.css';
+
+.datepicker-cell {
+  color: #6c757d;
+}
+
+.neos.neos-module .date-range-picker input {
+  margin: 0 1rem;
+}

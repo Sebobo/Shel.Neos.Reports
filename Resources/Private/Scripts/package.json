@@ -1,0 +1,19 @@
+{
+  "name": "shel-neos-reports",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "vanillajs-datepicker": "^1.2.0"
+  },
+  "source": "main.ts",
+  "scripts": {
+    "build": "esbuild main.ts --bundle --outfile=../../Public/Assets/main.js"
+  },
+  "devDependencies": {
+    "@types/vanillajs-datepicker": "^1.2.0",
+    "esbuild": "^0.14.43",
+    "typescript": "^4.7.3"
+  }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Shel.Neos.Reports" source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="module.label" xml:space="preserve">
+                <source>Reports</source>
+            </trans-unit>
+            <trans-unit id="module.description" xml:space="preserve">
+                <source>This module allows exporting created content as Excel file.</source>
+            </trans-unit>
+
+            <trans-unit id="selectRange.to" xml:space="preserve">
+                <source>and</source>
+            </trans-unit>
+            <trans-unit id="selectRange.label" xml:space="preserve">
+                <source>Only include data modified between</source>
+            </trans-unit>
+            <trans-unit id="action.generateReport" xml:space="preserve">
+                <source>Generate report</source>
+            </trans-unit>
+
+            <trans-unit id="column.linkToContent" xml:space="preserve">
+                <source>Link to content</source>
+            </trans-unit>
+
+            <trans-unit id="error.eelExpression" xml:space="preserve">
+                <source>Value could not be retrieved</source>
+            </trans-unit>
+
+            <trans-unit id="note.noPresets" xml:space="preserve">
+                <source>No presets were found. Please configure at least one in your settings.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
