@@ -1,4 +1,12 @@
 Shel:
   Neos:
     Reports:
+      defaults: # Fallbacks for each preset
+        filenamePrefix: 'report'
+        nodeTypes: {}
+        startingPoint: '/sites'
+        dateTimeFormats:
+          input: 'd.m.Y'
+          values: 'd.m.Y H:i'
+          filename: 'Y-m-d'
       presets: {}

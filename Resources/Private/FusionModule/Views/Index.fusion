@@ -11,15 +11,25 @@ prototype(Shel.Neos.Reports:Module.Index) < prototype(Neos.Fusion:Component) {
     renderer = afx`
         <div class="neos-content neos-container-fluid">
             <div class="neos-row-fluid">
-                <form action={props.generateReportAction} method="post">
+                <form action={props.generateReportAction} method="post" autocomplete="off">
                     <input type="hidden" name="__csrfToken" value={props.csrfToken}/>
 
                     <div class="date-range-picker" id="report-range" @if={props.presets}>
                         <span>{I18n.translate('Shel.Neos.Reports:Module:selectRange.label')}</span>
 
-                        <input type="text" name="moduleArguments[startDate]" autocomplete="false" value={props.startDate}/>
+                        <input
+                            type="text"
+                            name="moduleArguments[startDate]"
+                            value={props.startDate}
+                            placeholder={I18n.translate('Shel.Neos.Reports:Module:selectRange.startDate')}
+                        />
                         <span>{I18n.translate('Shel.Neos.Reports:Module:selectRange.to')}</span>
-                        <input type="text" name="moduleArguments[endDate]" autocomplete="false" value={props.endDate}/>
+                        <input
+                            type="text"
+                            name="moduleArguments[endDate]"
+                            value={props.endDate}
+                            placeholder={I18n.translate('Shel.Neos.Reports:Module:selectRange.endDate')}
+                        />
                     </div>
 
                     <br/>

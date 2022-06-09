@@ -139,12 +139,7 @@ class ReportsController extends AbstractModuleController
      */
     public function generateReportAction(string $presetName, string $startDate = null, string $endDate = null): void
     {
-        $presets = $this->getPresets();
-        if (isset($presets[$presetName])) {
-            $preset = $presets[$presetName];
-        } else {
-            throw new \InvalidArgumentException(sprintf('Preset "%s" not found', $presetName), 1654781295);
-        }
+        $preset = $this->getPreset($presetName);
         $startDateTime = $startDate ? \DateTime::createFromFormat($preset['dateTimeFormats']['input'], $startDate) : null;
         $endDateTime = $endDate ? \DateTime::createFromFormat($preset['dateTimeFormats']['input'], $endDate) : null;
 
@@ -179,27 +174,16 @@ class ReportsController extends AbstractModuleController
 
             // Read each property of the node and add it to the data array
             // Converts datetime and asset properties to a human-readable format
-            $nodeData = array_map(fn ($propertyName) => $this->getProperty($node, $propertyName, $preset), $nodeTypes[$nodeTypeName]['properties']);
+            $nodeData = array_reduce($nodeTypes[$nodeTypeName]['properties'], function ($carry, $propertyName) use ($node, $preset) {
+                $carry[$propertyName] = $this->getProperty($node, $propertyName, $preset);
+                return $carry;
+            }, []);
 
             // Evaluate each expression and the result add to the data array
             if (isset($nodeTypes[$nodeTypeName]['expressions'])) {
                 foreach ($nodeTypes[$nodeTypeName]['expressions'] as $propertyName => $expression) {
                     $nodeData[$propertyName] = $this->resolveQuery($node, $expression);
                 }
-            }
-
-            // Translate property names
-            if (!array_key_exists($nodeTypeName, $carry)) {
-                $carry[$nodeTypeName] = [array_map(function ($propertyName) use ($nodeTypeName) {
-                    $readablePropertyName = $this->nodeTypeManager->getNodeType($nodeTypeName)->getProperties()[$propertyName]['ui']['label'] ?? $propertyName;
-                    return $this->translateByShortHandString($readablePropertyName);
-                }, $nodeTypes[$nodeTypeName]['properties'])];
-
-                if (isset($nodeTypes[$nodeTypeName]['expressions'])) {
-                    $carry[$nodeTypeName][0] = array_merge($carry[$nodeTypeName][0], array_keys($nodeTypes[$nodeTypeName]['expressions']));
-                }
-
-                $carry[$nodeTypeName][0][] = $this->translateByShortHandString('Shel.Neos.Reports:Module:column.linkToContent');
             }
 
             // Add link to the closest document node of the node
@@ -213,6 +197,31 @@ class ReportsController extends AbstractModuleController
 
         $xlsx = new SimpleXLSXGen();
         foreach ($data as $nodeTypeName => $nodeData) {
+            $sorting = $nodeTypes[$nodeTypeName]['sortBy'];
+            if ($sorting) {
+                uasort($nodeData, static function ($a, $b) use ($sorting) {
+                    $valueA = $a[$sorting] ?? '';
+                    $valueB = $b[$sorting] ?? '';
+                    if ($valueA === $valueB) {
+                        return 0;
+                    }
+                    return $valueA <=> $valueB;
+                });
+            }
+
+            // Generate table header
+            $headerRow = array_map(function ($propertyName) use ($nodeTypeName) {
+                $readablePropertyName = $this->nodeTypeManager->getNodeType($nodeTypeName)->getProperties()[$propertyName]['ui']['label'] ?? $propertyName;
+                return $this->translateByShortHandString($readablePropertyName);
+            }, $nodeTypes[$nodeTypeName]['properties']);
+
+            if (isset($nodeTypes[$nodeTypeName]['expressions'])) {
+                $headerRow = array_merge($headerRow, array_keys($nodeTypes[$nodeTypeName]['expressions']));
+            }
+
+            $headerRow[]= $this->translateByShortHandString('Shel.Neos.Reports:Module:column.linkToContent');
+            array_unshift($nodeData, $headerRow);
+
             $xlsx->addSheet($nodeData, $this->nodeTypeManager->getNodeType($nodeTypeName)->getLabel());
         }
 
@@ -327,6 +336,22 @@ class ReportsController extends AbstractModuleController
     protected function getPresets(): array
     {
         return $this->settings['presets'] ?? [];
+    }
+
+    protected function getPreset(string $presetName): array
+    {
+        $presets = $this->getPresets();
+        if (!isset($presets[$presetName])) {
+            throw new \InvalidArgumentException('Preset "' . $presetName . '" does not exist');
+        }
+        return array_merge(
+            $this->settings['defaults'],
+            [
+                'label' => $presetName,
+                'filenamePrefix' => $presetName,
+            ],
+            $presets[$presetName]
+        );
     }
 
 }

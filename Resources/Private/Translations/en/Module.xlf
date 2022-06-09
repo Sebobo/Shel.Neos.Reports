@@ -15,6 +15,12 @@
             <trans-unit id="selectRange.label" xml:space="preserve">
                 <source>Only include data modified between</source>
             </trans-unit>
+            <trans-unit id="selectRange.startDate" xml:space="preserve">
+                <source>start date</source>
+            </trans-unit>
+            <trans-unit id="selectRange.endDate" xml:space="preserve">
+                <source>end date</source>
+            </trans-unit>
             <trans-unit id="action.generateReport" xml:space="preserve">
                 <source>Generate report</source>
             </trans-unit>

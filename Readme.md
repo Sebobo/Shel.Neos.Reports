@@ -9,13 +9,15 @@ Shel:
       presets: 
         myReport:
           label: 'My Report'
-          filenamePrefix: 'My report'
-          dateTimeFormat: 'd.m.Y'
-          dateTimeFormatForValues: 'd.m.Y H:i'
-          dateTimeFormatForFilename: 'Y-m-d'
           startingPoint: '/sites'
+          filenamePrefix: 'My report'
+          dateTimeFormats: 
+            input: 'd.m.Y'
+            values: 'd.m.Y H:i'
+            filename: 'Y-m-d_H-i'
           nodeTypes:
             My.Vendor:Content.Event:
+              sortBy: 'title'
               properties:
                 - title
                 - category
@@ -30,6 +32,7 @@ Shel:
                 Headline: "${q(node).children('content').first().property('title')}"
   
             My.Vendor:Document.News:
+              sortBy: 'title'
               properties:
                 - title
                 - publicationDateTime
@@ -38,6 +41,7 @@ Shel:
                 Text: "${String.stripTags(q(node).children('main').children('[instanceof My.Vendor:Content.Text]').first().property('content'))}"
   
             My.Vendor:Content.text:
+              sortBy: 'text'
               properties:
                 - text
 ```
