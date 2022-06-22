@@ -2,6 +2,7 @@
     "name": "shel/neos-reports",
     "description": "Report generator for Neos CMS node data",
     "type": "neos-plugin",
+    "license": "MIT",
     "keywords": [
         "neos",
         "neoscms",
