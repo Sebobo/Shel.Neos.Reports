@@ -143,7 +143,9 @@ class ReportsController extends AbstractModuleController
         $startDateTime = $startDate ? \DateTime::createFromFormat($preset['dateTimeFormats']['input'], $startDate) : null;
         $endDateTime = $endDate ? \DateTime::createFromFormat($preset['dateTimeFormats']['input'], $endDate) : null;
 
-        $context = $this->contextFactory->create();
+        $context = $this->contextFactory->create([
+            'invisibleContentShown' => true,
+        ]);
         $startingPoint = $preset['startingPoint'] ? $context->getNode($preset['startingPoint']) : $context->getRootNode();
 
         if (!$startingPoint) {
@@ -265,6 +267,10 @@ class ReportsController extends AbstractModuleController
 
         if ($propertyValue instanceof NodeInterface) {
             return $propertyValue->getLabel();
+        }
+
+        if (is_bool($propertyValue)) {
+            return $propertyValue ? 'true' : 'false';
         }
 
         return (string)$propertyValue;
