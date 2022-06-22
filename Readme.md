@@ -1,5 +1,23 @@
 # Report generator for NeosCMS based
 
+This package provides an Excel report generator for NeosCMS.
+
+You can configure report profiles via yaml and each can define 
+which nodetypes should be included and the columns for each of those.
+An optional starting point allows to only export parts of your site.
+
+A backend module shows a list of all configured profiles and allows to export them.
+
+## Installation
+
+Run the following command in your Neos project:
+
+```shell
+composer require shel/neos-reports
+```
+
+Or add the package as dependency to your site-package.
+
 ## Configuration example for a report preset
 
 ```yaml
@@ -45,3 +63,14 @@ Shel:
               properties:
                 - text
 ```
+
+## Contribute
+
+Contributions are very welcome.
+
+For code contributions, please create a fork and create a PR against the lowest maintained
+branch of this repository (currently `main`).
+
+## License
+
+See [License](LICENSE.txt)
